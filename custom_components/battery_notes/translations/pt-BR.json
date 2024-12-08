@@ -1,0 +1,200 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Se precisar de ajuda com a configuração, dê uma olhada aqui: https://andrew-codechimp.github.io/HA-Battery-Notes/",
+                "data": {
+                    "association_type": "Tipo de associação"
+                },
+                "menu_options": {
+                    "device": "Dispositivo (recomendado)",
+                    "entity": "Entidade"
+                },
+                "title": "Escolha o tipo de associação"
+            },
+            "device": {
+                "data": {
+                    "device_id": "Dipositivo",
+                    "name": "Nome"
+                },
+                "data_description": {
+                    "name": "Deixe em branco para usar o nome do dispositivo de origem"
+                }
+            },
+            "entity": {
+                "data": {
+                    "source_entity_id": "Entidade",
+                    "name": "Nome"
+                },
+                "data_description": {
+                    "name": "Deixe em branco para usar o nome da entidade de origem"
+                }
+            },
+            "battery": {
+                "description": "Fabricante: {manufacturer}\nModelo: {model}\nID do modelo: {model_id}\nVersão do hardware: {hw_version}",
+                "data": {
+                    "battery_type": "Tipo da bateria",
+                    "battery_quantity": "Quantidade de baterias",
+                    "battery_low_threshold": "Nível de bateria fraca",
+                    "battery_low_template": "Modelagem do nível de bateria fraca"
+                },
+                "data_description": {
+                    "battery_low_threshold": "Zero (0) usará o limite padrão global",
+                    "battery_low_template": "Modelo para determinar que a bateria está fraca, deve retornar verdadeiro se estiver fraca\nNecessário apenas para níveis de bateria fora do padrão"
+                }
+            },
+            "manual": {
+                "description": "Este dispositivo está marcado na biblioteca como manual. As variantes usam diferentes tipos de bateria, portanto, ele não pode ser definido na biblioteca.\nA próxima etapa permitirá que você defina seu tipo de bateria, mas não envie uma solicitação de dispositivo.",
+                "title": "Configuração manual do dispositivo"
+            }
+        },
+        "abort": {
+            "already_configured": "Este dispositivo já está configurado"
+        },
+        "error": {
+            "unknown": "Um erro desconhecido ocorreu.",
+            "unconfigurable_entity": "Não é possível adicionar esta entidade à integração."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "description": "Fabricante: {manufacturer}\nModelo: {model}\nID do modelo: {model_id}\nVersão do hardware: {hw_version}",
+                "data": {
+                    "name": "Nome",
+                    "battery_type": "Tipo da bateria",
+                    "battery_quantity": "Quantidade de baterias",
+                    "battery_low_threshold": "Nível de bateria fraca",
+                    "battery_low_template": "Modelagem do nível de bateria fraca"
+                },
+                "data_description": {
+                    "name": "Deixe em branco para usar o nome do dispositivo de origem",
+                    "battery_low_threshold": "Zero (0) usará o limite padrão global",
+                    "battery_low_template": "Modelo para determinar que a bateria está fraca, deve retornar verdadeiro se estiver fraca\nNecessário apenas para níveis de bateria fora do padrão"
+                }
+            }
+        },
+        "error": {
+            "orphaned_battery_note": "O dispositivo ou entidade associada não existe mais para esta entrada de configuração",
+            "unknown": "Um erro desconhecido ocorreu."
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "battery_low": {
+                "name": "{device_name} Bateria fraca",
+                "state_attributes": {
+                    "battery_low_threshold": {
+                        "name": "Nível de bateria fraca"
+                    }
+                }
+            }
+        },
+        "button": {
+            "battery_replaced": {
+                "name": "{device_name} Bateria subsituída"
+            }
+        },
+        "sensor": {
+            "battery_plus": {
+                "name": "{device_name} Bateria +",
+                "state_attributes": {
+                    "battery_type": {
+                        "name": "Tipo da bateria"
+                    },
+                    "battery_quantity": {
+                        "name": "Quantidade de baterias"
+                    },
+                    "battery_type_and_quantity": {
+                        "name": "Tipo e quantidade de bateria"
+                    },
+                    "battery_last_replaced": {
+                        "name": "Última subsituição da bateria"
+                    },
+                    "battery_low": {
+                        "name": "Bateria fraca"
+                    },
+                    "battery_low_threshold": {
+                        "name": "Nível de bateria fraca"
+                    },
+                    "battery_last_reported": {
+                        "name": "Último reporte da bateria"
+                    },
+                    "battery_last_reported_level": {
+                        "name": "Último nível de bateria reportado"
+                    },
+                    "source_entity_id": {
+                        "name": "ID da entidade fonte"
+                    },
+                    "device_id": {
+                        "name": "ID do dispositivo"
+                    },
+                    "device_name": {
+                        "name": "Nome do dispositivo"
+                    }
+                }
+            },
+            "battery_type": {
+                "name": "{device_name} Tipo da bateria",
+                "state_attributes": {
+                    "battery_type": {
+                        "name": "Tipo da bateria"
+                    },
+                    "battery_quantity": {
+                        "name": "Quantidade de baterias"
+                    }
+                }
+            },
+            "battery_last_replaced": {
+                "name": "{device_name} Último reporte da bateria"
+            }
+        }
+    },
+    "services": {
+        "set_battery_replaced": {
+            "description": "Defina data da substituição da bateria.",
+            "fields": {
+                "device_id": {
+                    "description": "Dispositivo cuja bateria foi substituída.",
+                    "name": "Dispositivo"
+                },
+                "entity_id": {
+                    "description": "Entidade cuja bateria foi substituída (usado somente para bateria associadas à entidade).",
+                    "name": "Entidade"
+                },
+                "datetime_replaced": {
+                    "description": "Data de subsituição",
+                    "name": "Data"
+                }
+            },
+            "name": "Definir subsituição da bateria"
+        },
+        "check_battery_last_reported": {
+            "description": "Gere eventos para dispositivos que não relataram o nível da bateria.",
+            "fields": {
+                "days_last_reported": {
+                    "description": "Número de dias desde a última vez que um dispositivo relatou seu nível de bateria.",
+                    "name": "Dias"
+                }
+            },
+            "name": "Verifique a última vez do reporte da bateria"
+        },
+        "check_battery_low": {
+            "description": "Gere eventos para dispositivos com bateria fraca.",
+            "name": "Verifique bateria fraca"
+        }
+    },
+    "issues": {
+        "missing_device": {
+            "title": "Configuração de `Battery Note` órfã",
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "title": "Configuração de `Battery Note` órfã",
+                        "description": "O dispositivo ou entidade associada não existe mais para a entrada de configuração {name}, essa entrada de configuração deve ser excluída.\nSelecione **Enviar** para excluir."
+                    }
+                }
+            }
+        }
+    }
+}
