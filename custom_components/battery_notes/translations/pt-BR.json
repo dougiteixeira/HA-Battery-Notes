@@ -97,7 +97,7 @@
         },
         "sensor": {
             "battery_plus": {
-                "name": "{device_name} Bateria +",
+                "name": "{device_name} Bateria+",
                 "state_attributes": {
                     "battery_type": {
                         "name": "Tipo da bateria"
@@ -146,7 +146,7 @@
                 }
             },
             "battery_last_replaced": {
-                "name": "{device_name} Último reporte da bateria"
+                "name": "Última subsituição da bateria"
             }
         }
     },
