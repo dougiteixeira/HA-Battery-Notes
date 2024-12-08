@@ -146,7 +146,7 @@
                 }
             },
             "battery_last_replaced": {
-                "name": "Última subsituição da bateria"
+                "name": "{device_name} Última subsituição da bateria"
             }
         }
     },
